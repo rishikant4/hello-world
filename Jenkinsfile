@@ -57,5 +57,30 @@ pipeline {
                 }
             }
         } 
+		stage('Upload Artifact to nexus repository') {
+            steps {
+                script {
+                    
+                    def mavenpom = readMavenPom file: 'pom.xml'
+                    def nex_repo = mavenpom.version.endsWith('SNAPSHOT') ? 'demoproject-snapshot' : 'demoproject-Release'
+                    nexusArtifactUploader artifacts: [
+                    [
+                        artifactId: 'HelloWorld',
+                        classifier: '',
+                        file: "target/HelloWorld-${mavenpom.version}.war",
+                        type: 'war'
+                    ]
+                ],
+                    credentialsId: "${env.nex_cred}",
+                    groupId: "${env.grp_ID}",
+                    nexusUrl: "${env.nex_url}",
+                    nexusVersion: "${env.nex_ver}",
+                    protocol: "${env.proto}",
+                    repository: "${nex_repo}",
+                    version: "${mavenpom.version}"
+                    echo 'Artifact uploaded to nexus repository'
+                }
+            }
+        }
     }
 }
