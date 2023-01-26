@@ -67,8 +67,8 @@ pipeline {
                     [
                         artifactId: 'springboot',
                         classifier: '',
-                        file: "target/Uber-${mavenpom.version}.war",
-                        type: 'war'
+                        file: "target/Uber-${mavenpom.version}.jar",
+                        type: 'jar'
                     ]
                 ],
                     credentialsId: "${env.nex_cred}",
