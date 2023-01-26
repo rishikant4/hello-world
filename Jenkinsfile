@@ -67,7 +67,7 @@ pipeline {
                     [
                         artifactId: 'springboot',
                         classifier: '',
-                        file: "target/Uber-${mavenpom.version}.jar",
+                        file: "target/demo-${mavenpom.version}.jar",
                         type: 'jar'
                     ]
                 ],
